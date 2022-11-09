@@ -34,14 +34,43 @@
         />
       </div>
     </div>
+    <div class="flex flex-wrap mt-4 mb-6">
+      <div class="w-full md:w-1/2 px-3">
+        <DisplayCropperButton 
+        btn-text="Update Profile Image"
+        label="Profile Image"
+        />
+      </div>
+    </div>
+    <div class="flex flex-wrap mt-4 mb-6">
+      <div class="w-full md:w-1/2 px-3">
+        <TextArea 
+          label="Description"
+          placeholder="Please enter a description"
+          v-model="description"
+          :error="error"
+        />
+      </div>
+    </div>
+    <div class="flex flex-wrap mt-8 mb-6">
+      <div class="w-full px-3">
+        <SubmitFormButton 
+          btn-text="Update Profile"
+        />
+      </div>
+    </div>
   </div>
 </template>  
 <script setup>
 import TextInput from "@/components/global/TextInput.vue";
+import TextArea from "@/components/global/TextArea.vue";
+import DisplayCropperButton from "@/components/global/DisplayCropperButton.vue";
+import SubmitFormButton from "@/components/global/SubmitFormButton.vue";
 import { ref } from "vue";
 
 let firstName = ref(null);
 let lastName = ref(null);
 let location = ref(null);
+let description = ref(null);
 let error = ref(null);
 </script>
