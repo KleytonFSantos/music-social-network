@@ -4,6 +4,7 @@ import RegisterView from '../views/RegisterView.vue'
 import LoginView from '../views/LoginView.vue'
 import AccountView from '@/views/AccountView.vue'
 import ProfileSection from '@/views/account/ProfileSection.vue'
+import EditProfile from '@/views/account/EditProfile.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -29,6 +30,11 @@ const routes: Array<RouteRecordRaw> = [
         path: 'profile',
         name: 'profile',
         component: ProfileSection,
+      },
+      {
+        path: 'edit-profile',
+        name: 'EditProfile',
+        component: EditProfile,
       }
     ]
   },
