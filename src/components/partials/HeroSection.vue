@@ -22,8 +22,9 @@
           px-4
           bg-green-600
           text-white
-          -font-semibold
+          font-semibold
           text-2xl
+          text-center
           rounded-lg
           shadow-md
           hover:bg-green-500
@@ -45,7 +46,8 @@
           px-4
           bg-blue-600
           text-white
-          -font-semibold
+          text-center
+          font-semibold
           text-2xl
           rounded-lg
           shadow-md
