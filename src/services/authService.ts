@@ -1,5 +1,6 @@
 import router from '@/router';
 import axios from 'axios'
+import { ref } from 'vue';
 
 const baseUrl = process.env.VUE_APP_API_URL
 
@@ -90,5 +91,10 @@ export const authService = {
             localStorage.removeItem('user');
             router.push('/');
         }).catch(err => console.log(err))
+    },
+    async getUsers(){
+        await axios.get(`${baseUrl}/get-users`)
+        .then(res => console.log('response', res.data))
+        .catch(err => ref(err))
     }
 }

@@ -15,6 +15,9 @@
             <i><b>London, UK</b></i>
           </span>
         </div>
+        <div v-for="user in users" :key="user.id">
+          users.first_name
+        </div>
         <div class="w-1/2 mt-2">
           <RouterLinkButton 
             btn-text="Edit Profile"
