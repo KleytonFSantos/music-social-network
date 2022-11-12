@@ -12,39 +12,35 @@
               label="First Name"
               :labelColor="false"
               placeholder="John"
-              v-model:input="firstName"
+              v-model:input="form.first_name"
               inputType="text"
-              :error="error"
             />
             <TextInput 
               label="Last Name"
               :labelColor="false"
               placeholder="Stark"
-              v-model:input="lastName"
+              v-model:input="form.last_name"
               inputType="text"
-              :error="error"
             />
             <TextInput 
               label="Email"
               :labelColor="false"
               placeholder="email@email.com"
-              v-model:input="email"
+              v-model:input="form.email"
               inputType="email"
-              :error="error"
             />
             <TextInput 
               label="Password"
               :labelColor="false"
               placeholder="*******"
-              v-model:input="password"
+              v-model:input="form.password"
               inputType="password"
-              :error="error"
             />
             <TextInput 
               label="Confirm Password"
               :labelColor="false"
               placeholder="*******"
-              v-model:input="confirmationPassword"
+              v-model:input="form.password_confirmation"
               inputType="password"
               :error="error"
             />
@@ -60,6 +56,7 @@
               text-sm
               tracking-wide
             "
+            @click="register(form, error)"
           >
             Register
           </button>
@@ -80,12 +77,26 @@
 </template>
 <script setup>
   import TextInput from '@/components/global/TextInput.vue';
-  import { ref } from 'vue'
+  import { authService } from '@/services/authService';
+  import { ref, reactive } from 'vue'
+  import router from "@/router";
 
-  let firstName = ref(null);
-  let lastName = ref(null);
-  let email = ref(null);
-  let password = ref(null);
-  let confirmationPassword = ref(null);
+  let form = reactive({
+      first_name : "",
+      last_name : "",
+      email : "",
+      password : "",
+      password_confirmation : "",
+  })
+ 
   let error = ref(null);
+  const register = (form) => {
+    authService.register(form, () => {
+      router.push('/account/profile')
+    }, () => {
+      
+      error.value = "erro no cadastro";
+    })
+  }
+  
 </script>

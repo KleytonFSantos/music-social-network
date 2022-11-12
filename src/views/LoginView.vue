@@ -11,9 +11,9 @@
             <TextInput 
               label="Email"
               :labelColor="false"
-              :error="error"
+              error=""
               placeholder="type your email"
-              v-model:input="email"
+              v-model:input="form.email"
               inputType="email"
             />
             <TextInput 
@@ -21,11 +21,12 @@
               :labelColor="false"
               :error="error"
               placeholder="*******"
-              v-model:input="password"
+              v-model:input="form.password"
               inputType="password"
             />
           </div>
           <button
+            @click="login(form, error)"
             class="
               block
               w-full
@@ -56,11 +57,23 @@
 </template>
 
 <script setup>
+  import { authService } from "@/services/authService";
+  import router from "@/router";
   import TextInput from '@/components/global/TextInput.vue';
   
-  import { ref } from '@vue/reactivity';
-
-  let email = ref(null);
-  let password = ref(null);
-  let error = ref(null);
+  import { reactive, ref } from '@vue/reactivity';
+  let form = reactive({
+    email: '',
+    password: '',
+  })
+  
+  let error = ref(null)
+  const login = (form) => {
+    authService.login(form, () => {
+      router.push('/account/profile')
+    }, () => {
+      console.log('deu erro')
+      error.value = 'As credenciais estão incorretas.';
+    })
+  }
 </script>

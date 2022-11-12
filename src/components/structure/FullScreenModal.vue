@@ -40,7 +40,15 @@
               class="w-full text-gray-100 text-center text-lg"
               btn-text="Profile"
               color="green"
-              url="account/profile"
+              url="/account/profile"
+            />
+          </div>
+          <div class="pt-10 mt-6">
+            <RouterLinkButton
+              @click="logout()"
+              class="w-full text-gray-100 text-center text-lg"
+              btn-text="Logout"
+              color="red"
             />
           </div>
           <div class="pt-10 mt-6">
@@ -48,7 +56,7 @@
               @click="open = !open"
               class="w-full text-gray-100 text-center text-lg"
               btn-text="Close"
-              color="red"
+              color="yellow"
             />
           </div>
         </div>
@@ -59,6 +67,12 @@
 <script setup>
   import { ref } from "vue";
   import RouterLinkButton from '../global/RouterLinkButton.vue';
-
+  import { authService } from '@/services/authService'
+  
   let open = ref(false);
+  
+  const logout = () => {
+    authService.logout();
+  }
+  
 </script>
