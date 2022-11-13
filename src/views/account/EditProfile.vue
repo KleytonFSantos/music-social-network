@@ -8,7 +8,7 @@
         <TextInput
           label="First Name"
           placeholder="John"
-          v-model:input="firstName"
+          v-model:input="resource.first_name"
           input-type="text"
           :error="error"
         />
@@ -17,7 +17,7 @@
         <TextInput
           label="Last Name"
           placeholder="Doe"
-          v-model:input="lastName"
+          v-model:input="resource.last_name"
           input-type="text"
           :error="error"
         />
@@ -26,9 +26,18 @@
     <div class="flex flex-wrap mt-4 mb-6">
       <div class="w-full md:w-1/2 px-3">
         <TextInput
-          label="Location"
-          placeholder="London, UK"
-          v-model:input="location"
+          label="City"
+          placeholder="London"
+          v-model:input="resource.city"
+          input-type="text"
+          :error="error"
+        />
+      </div>
+      <div class="w-full md:w-1/2 px-3">
+        <TextInput
+          label="State"
+          placeholder="UK"
+          v-model:input="resource.state"
           input-type="text"
           :error="error"
         />
@@ -47,7 +56,7 @@
         <TextArea 
           label="Description"
           placeholder="Please enter a description"
-          v-model="description"
+          v-model:description="resource.description"
           :error="error"
         />
       </div>
@@ -55,6 +64,7 @@
     <div class="flex flex-wrap mt-8 mb-6">
       <div class="w-full px-3">
         <SubmitFormButton 
+          @click="editProfile(resource)"
           btn-text="Update Profile"
         />
       </div>
@@ -66,11 +76,21 @@ import TextInput from "@/components/global/TextInput.vue";
 import TextArea from "@/components/global/TextArea.vue";
 import DisplayCropperButton from "@/components/global/DisplayCropperButton.vue";
 import SubmitFormButton from "@/components/global/SubmitFormButton.vue";
-import { ref } from "vue";
+import { profileService } from "@/services/profileService";
+import { ref, reactive } from "vue";
 
-let firstName = ref(null);
-let lastName = ref(null);
-let location = ref(null);
-let description = ref(null);
 let error = ref(null);
+
+let resource = reactive({
+  first_name: "",
+  last_name: "",
+  city: "",
+  state: "",
+  description: "",
+})
+const editProfile = async(resource) => {
+  console.log('resource', resource)
+  profileService.editProfile(resource)
+}
+
 </script>

@@ -1,6 +1,5 @@
 import router from '@/router';
 import axios from 'axios'
-import { ref } from 'vue';
 
 const baseUrl = process.env.VUE_APP_API_URL
 
@@ -48,8 +47,7 @@ export const authService = {
                 if(success) {
                     successFunction();
                 }
-            }).catch((error) => {
-                console.log(error)
+            }).catch(() => {
                 if(!success) {
                     errorFunction();
                 }
@@ -65,13 +63,11 @@ export const authService = {
         };
         let success = false
         axios.get(`${baseUrl}/user`, config)
-            .then(response => {
+            .then(() => {
                 success = true;
                 successFunction()
-                console.log(response);
-            }).catch(error => {
+            }).catch(() => {
                 if (!success) {
-                    console.log(error);
                     errorFunction()
                 }
             })
@@ -85,16 +81,46 @@ export const authService = {
             }
           };
         axios.get(`${baseUrl}/logout`, config)
-        .then(res => {
-            console.log(res)
+        .then(() => {
             localStorage.removeItem('token');
             localStorage.removeItem('user');
             router.push('/');
-        }).catch(err => console.log(err))
+        })
     },
-    async getUsers(){
+    async getUsers(successFunction: (users: object) => void, errorFunction: (err: object) => void){
+        let success = false;
         await axios.get(`${baseUrl}/get-users`)
-        .then(res => console.log('response', res.data))
-        .catch(err => ref(err))
+        .then(res => {
+            success = true;
+            if(success) {
+                successFunction(res.data)
+            }
+        })
+        .catch(err => {
+            if(!success) {
+                errorFunction(err)
+            }
+        })
+    },
+    async getUser(successFunction:(user: object) => void, errorFunction:(error: object) => void) {
+        const token = localStorage.getItem('token');
+
+        const config = {
+            headers:{
+              Authorization: `Bearer ${token}`,
+            }
+          };
+
+        let success = false;
+        await axios.get(`${baseUrl}/user`, config)
+          .then(response => {
+            success = true;
+            successFunction(response.data)
+          }).catch(err => {
+            if (!success) {
+                errorFunction(err)
+            }
+          })
+
     }
 }

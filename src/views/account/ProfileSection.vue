@@ -10,25 +10,23 @@
     <div class="w-full pl-4">
       <div class="flex">
         <div class="w-1/2">
-          <h1 class="text-2xl md:text-4xl text-left text-gray-900">John doe</h1>
+          <h1 class="text-2xl md:text-4xl text-left text-gray-900 capitalize" v-if="user">
+            {{ user.first_name + ' ' + user.last_name}}
+          </h1>
           <span class="text-md text-gray-700">
-            <i><b>London, UK</b></i>
+            <i><b>{{ user.city }}, {{ user.state }}</b></i>
           </span>
-        </div>
-        <div v-for="user in users" :key="user.id">
-          users.first_name
         </div>
         <div class="w-1/2 mt-2">
           <RouterLinkButton 
             btn-text="Edit Profile"
             color="green"
-            url="account/edit-profile"
+            url="/account/edit-profile"
           />
         </div>
       </div>
-
       <ProfileInfoSection />
-      <ProfileAboutSection />
+      <ProfileAboutSection :aboutText="user.description" />
     </div>
   </div>
   <SongsSection />
@@ -43,4 +41,19 @@
     import SongsSection from '../../components/partials/profile/SongsSection.vue';
     import YoutubeVideosSection from '../../components/partials/profile/YoutubeVideosSection.vue';
     import PostsSection from '../../components/partials/profile/PostsSection.vue';
+    import { authService } from '@/services/authService';
+    import { ref } from 'vue';
+    
+    let user = ref(null)
+    let error = ref(null)
+    const getUser = () => {
+      authService.getUser((data) => {
+        user.value = data
+      }, (err) => {
+        error.value = err;
+      })
+      
+    }
+    getUser();
+
 </script>
