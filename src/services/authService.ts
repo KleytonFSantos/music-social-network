@@ -112,7 +112,7 @@ export const authService = {
           };
 
         let success = false;
-        await axios.get(`${baseUrl}/user`, config)
+        await axios.get(`${baseUrl}/get-user`, config)
           .then(response => {
             success = true;
             successFunction(response.data)

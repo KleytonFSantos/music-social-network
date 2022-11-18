@@ -5,6 +5,8 @@ import LoginView from "../views/LoginView.vue";
 import AccountView from "@/views/AccountView.vue";
 import ProfileSection from "@/views/account/ProfileSection.vue";
 import EditProfile from "@/views/account/EditProfile.vue";
+import AddSong from "@/views/account/AddSong.vue";
+import DeleteSong from "@/views/account/DeleteSong.vue";
 import { authService } from "@/services/authService";
 
 let isUserLoggedIn = false;
@@ -41,6 +43,16 @@ const routes: Array<RouteRecordRaw> = [
         path: "edit-profile",
         name: "EditProfile",
         component: EditProfile,
+      },
+      {
+        path: "add-song",
+        name: "AddSong",
+        component: AddSong,
+      },
+      {
+        path: "delete-song",
+        name: "DeleteSong",
+        component: DeleteSong,
       },
     ],
   },

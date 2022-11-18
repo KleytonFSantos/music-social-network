@@ -2,8 +2,10 @@
   <div class="container max-w-4xl mx-auto flex mt-10">
     <div class="w-1/3">
       <img
+        v-if="user"
         class="w-full rounded-lg h-auto shadow-lg"
-        src="https://via.placeholder.com/500"
+        :src="user.profile_image 
+        ?? 'https://via.placeholder.com/500'"
         alt="Profile Pic"
       />
     </div>
@@ -11,10 +13,10 @@
       <div class="flex">
         <div class="w-1/2">
           <h1 class="text-2xl md:text-4xl text-left text-gray-900 capitalize" v-if="user">
-            {{ user.first_name + ' ' + user.last_name}}
+            {{ user.first_name + ' ' + user.last_name }}
           </h1>
-          <span class="text-md text-gray-700">
-            <i><b>{{ user.city }}, {{ user.state }}</b></i>
+          <span class="text-md text-gray-700" v-if="user">
+            <i><b>{{ user.city ? user.city  + ", " + user.state : "" }}</b></i>
           </span>
         </div>
         <div class="w-1/2 mt-2">
@@ -26,7 +28,7 @@
         </div>
       </div>
       <ProfileInfoSection />
-      <ProfileAboutSection :aboutText="user.description" />
+      <ProfileAboutSection v-if="user" :aboutText="user.description ?? ''" />
     </div>
   </div>
   <SongsSection />

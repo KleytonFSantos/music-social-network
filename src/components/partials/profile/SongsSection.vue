@@ -7,15 +7,15 @@
 
                 <div class="w-full mt-4">
                     <RouterLinkButton 
-                        class="ml-2"
+                        class="hover:bg-red-500 border-red-500 ml-2"
                         btn-text="Delete Song"
                         color="red"
-                        url="account/delete-song"
+                        url="/account/delete-song"
                     />
                     <RouterLinkButton 
                         btn-text="Add Song"
                         color="green"
-                        url="account/add-song"
+                        url="/account/add-song"
                     />
                 </div>
             </div>

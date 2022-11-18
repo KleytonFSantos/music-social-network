@@ -9,7 +9,7 @@
   </div>
 </template>
 <script setup>
- import  { computed, defineProps, toRefs }  from 'vue';
+ import  { defineProps, toRefs }  from 'vue';
 
   const props = defineProps({
       aboutText: String,
