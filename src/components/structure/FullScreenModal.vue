@@ -40,7 +40,7 @@
               class="w-full text-gray-100 text-center text-lg"
               btn-text="Profile"
               color="green"
-              url="/account/profile"
+              :url="'/account/profile/' + user_id"
             />
           </div>
           <div class="pt-10 mt-6">
@@ -65,12 +65,25 @@
   </div>
 </template>
 <script setup>
-  import { ref } from "vue";
+  import { onMounted, ref } from "vue";
   import RouterLinkButton from '../global/RouterLinkButton.vue';
   import { authService } from '@/services/authService'
   
   let open = ref(false);
+  let user_id = ref(false);
   
+  onMounted(() => {
+        getUserId();
+  })
+  
+  const getUserId = () => {
+    authService.getUser((data) => {
+      user_id.value = data.user_id
+    }, (err) => {
+      console.log(err)
+    })
+  }
+
   const logout = () => {
     authService.logout();
   }

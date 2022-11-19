@@ -3,6 +3,15 @@ import axios from 'axios'
 
 const baseUrl = process.env.VUE_APP_API_URL
 
+type TUser = {
+    user_id: number,
+    first_name: string,
+    last_name: string,
+    profile_image: string,
+    city: string,
+    state: string
+}
+
 export const authService = {
     async register(
         resource: {
@@ -35,7 +44,7 @@ export const authService = {
             email: string, 
             password: string 
         }, 
-        successFunction: () => void, 
+        successFunction: (user: TUser) => void, 
         errorFunction: () => void
         ): Promise<void> {
         let success = false;
@@ -45,7 +54,7 @@ export const authService = {
                 localStorage.setItem('token', res.data.token);
                 localStorage.setItem('user', res.data.user.email);
                 if(success) {
-                    successFunction();
+                    successFunction(res.data.user);
                 }
             }).catch(() => {
                 if(!success) {
@@ -53,7 +62,7 @@ export const authService = {
                 }
             })
     },
-    async auth(successFunction: () => void, errorFunction: () => void) {
+    async auth(successFunction: (user: object) => void, errorFunction: () => void) {
         const token = localStorage.getItem('token');
 
         const config = {
@@ -63,9 +72,9 @@ export const authService = {
         };
         let success = false
         axios.get(`${baseUrl}/user`, config)
-            .then(() => {
+            .then((res) => {
                 success = true;
-                successFunction()
+                successFunction(res)
             }).catch(() => {
                 if (!success) {
                     errorFunction()
@@ -102,7 +111,7 @@ export const authService = {
             }
         })
     },
-    async getUser(successFunction:(user: object) => void, errorFunction:(error: object) => void) {
+    async getUser(successFunction:(user: TUser) => void, errorFunction:(error: object) => void) {
         const token = localStorage.getItem('token');
 
         const config = {

@@ -27,6 +27,10 @@
           />
         </div>
       </div>
+      <audio controls>
+        <source src="http://localhost:8000/public/storage/songs/AUD-20220801-WA0085.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+      </audio>
       <ProfileInfoSection />
       <ProfileAboutSection v-if="user" :aboutText="user.description ?? ''" />
     </div>
@@ -51,6 +55,7 @@
     const getUser = () => {
       authService.getUser((data) => {
         user.value = data
+        console.log(data);
       }, (err) => {
         error.value = err;
       })

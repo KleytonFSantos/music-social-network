@@ -6,29 +6,39 @@
 
 <script setup>
     import { onMounted } from "vue";
+    import { songsService } from "@/services/songsService";
     import APlayer from "aplayer";
     import 'aplayer/dist/APlayer.min.css';
+    import { useRoute } from 'vue-router'
 
     onMounted(() => {
+        getSongsByUser();
         thePlayer();
     })
+    
+    const route = useRoute()
+    let songsList = []
+    const getSongsByUser = () => {
+        songsService.SongsByUserId(route.params.user_id, (data) => {
+           let newSongs = data.data.songs.map((song) => {
+                return {
+                    name: song.title,
+                    artist: data.data.artist_name,
+                    url: process.env.VUE_APP_URL + '/storage/songs/' + song.user_id + '/' + song.namefile
+                }
+            })
+
+            for (let i = 0; i < newSongs.length; i++) {
+                songsList.push(newSongs[i])
+            }
+
+            thePlayer()
+        })
+    }
     const thePlayer = () => {
         new APlayer({
             container: document.getElementById('aplayer'),
-            audio: [
-                {
-                name: 'First Song',
-                artist: 'artist',
-                url: '/music/battle-of-the-dragons-8037.mp3',
-                cover: '',
-                },
-                {
-                name: 'Second Song',
-                artist: 'artist',
-                url: '/music/cinematic-time-lapse-115672.mp3',
-                cover: '',
-                },
-            ]
+            audio: songsList
         })
     }
 </script>

@@ -35,7 +35,7 @@ const routes: Array<RouteRecordRaw> = [
     },
     children: [
       {
-        path: "profile",
+        path: "profile/:user_id",
         name: "profile",
         component: ProfileSection,
       },

@@ -55,29 +55,49 @@
 <script setup>
 import TextInput from "@/components/global/TextInput.vue";
 import SubmitFormButton from "@/components/global/SubmitFormButton.vue";
-import { songsService } from "@/services/songsService"
+import { songsService } from "@/services/songsService";
+import { authService } from "@/services/authService";
 import router from "@/router";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 
+onMounted(() => {
+  getUserId();
+});
 
+let user_id = ref(false);
 let error = ref(null);
 let title = ref(null);
 let song = ref(null);
 
 const getUploadedSong = (e) => {
-  song.value =  URL.createObjectURL(e.target.files[0]);
-}
+  console.log(e.target);
+  song.value = e.target.files[0];
+};
+
+const getUserId = () => {
+  authService.getUser(
+    (data) => {
+      user_id.value = data.user_id;
+    },
+    (err) => {
+      console.log(err);
+    }
+  );
+};
 
 const addSong = () => {
-  songsService.addSongs({
-    title: title.value, 
-    song: song.value
-  }, () => {
-      router.push('/account/profile')
-    }, () => {
+  const payload = new FormData();
+  payload.append("title", title.value);
+  payload.append("song", song.value);
+  console.log(payload);
+  songsService.addSongs(
+    payload,
+    () => {
+      router.push('/account/profile/' + user_id.value);
+    },
+    () => {
       error.value = "erro no upload";
-    })
-    console.log(title.value, song.value);
-}
-
+    }
+  );
+};
 </script>
