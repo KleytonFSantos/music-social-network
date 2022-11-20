@@ -70,7 +70,6 @@ let title = ref(null);
 let song = ref(null);
 
 const getUploadedSong = (e) => {
-  console.log(e.target);
   song.value = e.target.files[0];
 };
 
@@ -89,7 +88,6 @@ const addSong = () => {
   const payload = new FormData();
   payload.append("title", title.value);
   payload.append("song", song.value);
-  console.log(payload);
   songsService.addSongs(
     payload,
     () => {
