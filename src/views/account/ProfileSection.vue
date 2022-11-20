@@ -27,7 +27,7 @@
           />
         </div>
       </div>
-      <ProfileInfoSection />
+      <ProfileInfoSection v-if="user" :songsNumber="user.songs"/>
       <ProfileAboutSection v-if="user" :aboutText="user.description ?? ''" />
     </div>
   </div>
@@ -51,7 +51,6 @@
     const getUser = () => {
       authService.getUser((data) => {
         user.value = data
-        console.log(data);
       }, (err) => {
         error.value = err;
       })
