@@ -11,7 +11,9 @@ export const profileService = {
         profile_image: string | null, 
         city: string | null, 
         state: string | null, 
-    }) {
+    }, 
+    successFunction: (response: object) => void,
+    errorFunction: (err: object) => void) {
         const token = localStorage.getItem('token');
 
         const config = {
@@ -20,9 +22,10 @@ export const profileService = {
             }
         };
         axios.post(`${baseUrl}/edit-profile`, resource, config)
-        .then((res) => {
-            router.push('/account/profile')
-            console.log('resUpdate', res);
-        }).catch(err => console.log('errUpdate', err));
+        .then((response) => {
+            console.log(response)
+            router.push('/account/profile/' + response.data.user_id)
+            successFunction(response)
+        }).catch(err =>  errorFunction(err));
     }
 }

@@ -93,6 +93,8 @@ import DisplayCropperButton from "@/components/global/DisplayCropperButton.vue";
 import CropperImage from "@/components/global/CropperImage.vue";
 import SubmitFormButton from "@/components/global/SubmitFormButton.vue";
 import CropperModal from "@/components/global/CropperModal.vue";
+import { createToast } from 'mosha-vue-toastify';
+import 'mosha-vue-toastify/dist/style.css';
 import { profileService } from "@/services/profileService";
 import { ref, reactive } from "vue";
 
@@ -116,9 +118,31 @@ const setCroppedImageData = (data) => {
 }
 
 const editProfile = async(resource) => {
-  console.log('resource', resource)
-  profileService.editProfile(resource)
+  profileService.editProfile(resource,
+  () => {
+    toastNotify({
+      title: 'Success!',
+      description: 'The profile has been edited successfully'
+    }, 'success')
+  }, () => {
+    toastNotify({
+      title: 'Error!',
+      description: 'Something went wrong'
+    }, 'danger')
+  })
 }
 
-
+const toastNotify = (
+  config = {
+    title: "",
+    description: "",
+  },
+  type
+) => {
+  createToast(config, {
+    type: type,
+    position: "top-center",
+    transition: "bounce",
+  });
+};
 </script>

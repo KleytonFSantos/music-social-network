@@ -59,6 +59,8 @@ import { songsService } from "@/services/songsService";
 import { authService } from "@/services/authService";
 import router from "@/router";
 import { ref, onMounted } from "vue";
+import { createToast } from "mosha-vue-toastify";
+import "mosha-vue-toastify/dist/style.css";
 
 onMounted(() => {
   getUserId();
@@ -91,11 +93,39 @@ const addSong = () => {
   songsService.addSongs(
     payload,
     () => {
-      router.push('/account/profile/' + user_id.value);
+      router.push("/account/profile/" + user_id.value);
+      toastNotify(
+        {
+          title: "Success",
+          description: "Song added successfully",
+        },
+        "success"
+      );
     },
     () => {
       error.value = "erro no upload";
+      toastNotify(
+        {
+          title: "Error",
+          description: "Something went wrong",
+        },
+        "danger"
+      );
     }
   );
+};
+
+const toastNotify = (
+  config = {
+    title: "",
+    description: "",
+  },
+  type
+) => {
+  createToast(config, {
+    type: type,
+    position: "top-center",
+    transition: "bounce",
+  });
 };
 </script>

@@ -6,16 +6,17 @@
                 <div class="bg-green-500 w-full h-1"></div>
 
                 <div class="w-full mt-4">
+                    
                     <RouterLinkButton 
                         class="ml-2"
                         btn-text="Delete Youtube Video"
                         color="red"
-                        url="account/delete-youtube-video"
+                        url="/account/delete-youtube-video"
                     />
-                    <RouterLinkButton 
+                    <RouterLinkButton
                         btn-text="Add Youtube Video"
                         color="green"
-                        url="account/add-youtube-video"
+                        url="/account/add-youtube-video"
                     />
                 </div>
             </div>
@@ -32,4 +33,18 @@
 
 <script setup>
     import RouterLinkButton from '../../global/RouterLinkButton.vue';
+    // import { createToast } from 'mosha-vue-toastify';
+    // import 'mosha-vue-toastify/dist/style.css';
+    
+    // const toastTest = () => {
+    //     console.log('cliquei')
+    //     createToast({
+    //         title: 'funcionou',
+    //         description: 'vendo se presta'
+    //     },{
+    //         type: 'success',
+    //         position: 'top-center', 
+    //         transition: 'bounce',
+    //     })
+    // }
 </script>
