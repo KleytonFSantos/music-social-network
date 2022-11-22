@@ -60,8 +60,8 @@
   import { authService } from "@/services/authService";
   import router from "@/router";
   import TextInput from '@/components/global/TextInput.vue';
-  
   import { reactive, ref } from '@vue/reactivity';
+
   let form = reactive({
     email: '',
     password: '',

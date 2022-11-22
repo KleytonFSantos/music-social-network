@@ -91,8 +91,8 @@
  
   let error = ref(null);
   const register = (form) => {
-    authService.register(form, () => {
-      router.push('/account/profile')
+    authService.register(form, (res) => {
+      router.push('/account/profile/' + res.user.id)
     }, () => {
       
       error.value = "erro no cadastro";

@@ -2,20 +2,6 @@ import axios from 'axios'
 
 const baseUrl = process.env.VUE_APP_API_URL
 
-
-type Songs = {
-    artist_id: number,
-    artist_name: string,
-    songs: [{
-      id: number,
-      title: string,
-      namefile: string,
-      user_id: string,
-      created_at: string,
-    }]
-  }
-  
-
 export const songsService = {
     addSongs( 
     resource: {
@@ -39,23 +25,6 @@ export const songsService = {
         }).catch(err => {
             errorFunction(err)
         });
-    },
-    async SongsByUserId(
-        userId: number, 
-        successFunction: (res: Songs | unknown) => void, 
-        // errorFunction: () => void
-    ): Promise<void> {
-        const token = localStorage.getItem('token');
-
-        const config = {
-            headers:{
-                Authorization: 'Bearer ' + token
-            }
-        };
-        await axios.get(`${baseUrl}/get-songs/${userId}`, config)
-        .then((res) => {
-            successFunction(res)
-        }).catch(err=>console.log('err', err))
     },
     async deleteSong(
         userId: number,

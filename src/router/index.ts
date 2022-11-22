@@ -8,6 +8,7 @@ import EditProfile from "@/views/account/EditProfile.vue";
 import AddSong from "@/views/account/AddSong.vue";
 import DeleteSong from "@/views/account/DeleteSong.vue";
 import { authService } from "@/services/authService";
+import AddYoutubeVideo from "@/views/account/AddYoutubeVideo.vue";
 
 let isUserLoggedIn = false;
 
@@ -53,6 +54,11 @@ const routes: Array<RouteRecordRaw> = [
         path: "delete-song",
         name: "DeleteSong",
         component: DeleteSong,
+      },
+      {
+        path: "add-youtube-video",
+        name: "AddYoutubeVideo",
+        component: AddYoutubeVideo,
       },
     ],
   },

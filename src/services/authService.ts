@@ -4,7 +4,7 @@ import axios from 'axios'
 const baseUrl = process.env.VUE_APP_API_URL
 
 type TUser = {
-    user_id: number,
+    id: number,
     first_name: string,
     last_name: string,
     profile_image: string,
@@ -21,7 +21,7 @@ export const authService = {
             password: string, 
             password_confirmation: string
         }, 
-        successFunction: () => void, 
+        successFunction: (res: object) => void, 
         errorFunction: () => void 
         ): Promise<void> {
             let success = false;
@@ -31,7 +31,7 @@ export const authService = {
                     localStorage.setItem('token', res.data.token);
                     localStorage.setItem('user', res.data.user.email);
                     if(success) {
-                        successFunction();
+                        successFunction(res.data);
                     }
                 }).catch(() => {
                     if(!success) {

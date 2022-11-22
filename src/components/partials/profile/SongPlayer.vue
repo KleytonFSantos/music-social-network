@@ -6,24 +6,25 @@
 
 <script setup>
     import { onMounted } from "vue";
-    import { songsService } from "@/services/songsService";
+    import { useSongStore } from "@/stores/songStore";
     import APlayer from "aplayer";
     import 'aplayer/dist/APlayer.min.css';
     import { useRoute } from 'vue-router'
 
-    onMounted(() => {
+    const songStore = useSongStore()
+    const route = useRoute()
+
+    onMounted(async () => {
+        await songStore.fetchSongsByUserId(route.params.user_id)
         getSongsByUser();
-        thePlayer();
     })
     
-    const route = useRoute()
     let songsList = []
     const getSongsByUser = () => {
-        songsService.SongsByUserId(route.params.user_id, (data) => {
-           let newSongs = data.data.songs.map((song) => {
+           let newSongs = songStore.songs.songs.map((song) => {
                 return {
                     name: song.title,
-                    artist: data.data.artist_name,
+                    artist: songStore.songs.artist_name,
                     url: process.env.VUE_APP_URL + '/storage/songs/' + song.user_id + '/' + song.namefile
                 }
             })
@@ -33,8 +34,8 @@
             }
 
             thePlayer()
-        })
-    }
+        }
+    
     const thePlayer = () => {
         new APlayer({
             container: document.getElementById('aplayer'),

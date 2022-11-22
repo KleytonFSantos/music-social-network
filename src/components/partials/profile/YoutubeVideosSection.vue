@@ -22,29 +22,25 @@
             </div>
         </div>
 
-        <div class="flex flex-wrap mb-4">
-            <div class="my-1 px-1 w-full md:w-1/2 lg:w-1/2">
-                <div class="text-xl text-gray-900">Video Title</div>
-                <iframe class="w-full h-60" src="https://www.youtube.com/embed/BuGg79KRBlc" title="Video section with Vue 3 and Tailwind CSS | IFrame | Pt 10" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="flex flex-wrap mb-4" >
+            <div class="my-1 px-1 w-full md:w-1/2 lg:w-1/2" v-for="video in storeVideo.videos" :key="video.id">
+                <div class="text-xl text-gray-900">{{ video.title }}</div>
+                <iframe class="w-full h-60" :src="'https://www.youtube.com/embed/' + video.path" title="Video section with Vue 3 and Tailwind CSS | IFrame | Pt 10" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
     </div>
 </template>
 
 <script setup>
-    import RouterLinkButton from '../../global/RouterLinkButton.vue';
-    // import { createToast } from 'mosha-vue-toastify';
-    // import 'mosha-vue-toastify/dist/style.css';
+    import { onMounted } from 'vue';
+    import { useVideoStore } from '@/stores/videoStore';
+    import 'mosha-vue-toastify/dist/style.css';
+    import { useRoute } from 'vue-router';
     
-    // const toastTest = () => {
-    //     console.log('cliquei')
-    //     createToast({
-    //         title: 'funcionou',
-    //         description: 'vendo se presta'
-    //     },{
-    //         type: 'success',
-    //         position: 'top-center', 
-    //         transition: 'bounce',
-    //     })
-    // }
+    const storeVideo = useVideoStore()
+    const route = useRoute()
+
+    onMounted( async () => {
+        storeVideo.fetchVideosByUserId(route.params.user_id);
+    });
 </script>
