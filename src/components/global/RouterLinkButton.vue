@@ -9,6 +9,7 @@
             py-2
             px-4
             border
+            rounded-md
         "
         :class="[color ? 'hover:bg-' + color + '-500 border-' + color + '-500' : '']"
         :to="url"

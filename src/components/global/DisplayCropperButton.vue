@@ -5,7 +5,7 @@
         {{ label }}
     </label>
     <button
-        class="mt-2 inline-block bg-green-500 hover:bg-green-700 font-bold text-white no-underline px-4 py-3"
+        class="mt-2 inline-block bg-green-500 hover:bg-green-700 font-bold text-white no-underline px-4 py-3 rounded-md"
         @click="$emit('showModal', true)"
         >
            {{ btnText }}

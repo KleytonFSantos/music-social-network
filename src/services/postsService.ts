@@ -52,5 +52,29 @@ export const postsService = {
             errorFunction(err)
             console.log('error', err);
         });
+    },
+    async editPost(
+        userId: number,
+        postId: number,
+        post: Post,
+        successFunction: (response: object) => void,
+        errorFunction: (err: Response) => void
+    ){
+        const token = localStorage.getItem('token');
+
+        const config = {
+            headers:{
+                Authorization: 'Bearer ' + token
+            }
+        };
+
+        await axios.put(`${baseUrl}/${userId}/edit-post/${postId}`, post, config)
+        .then((res) => {
+            console.log('success', res);
+            successFunction(res);
+        }).catch((err) => {
+            errorFunction(err)
+            console.log('error', err);
+        });
     }
 }
