@@ -1,23 +1,23 @@
-import axios from 'axios'
+import axios from "axios";
 import { ref } from "vue";
-import { defineStore } from 'pinia'
+import { defineStore } from "pinia";
 
-const baseUrl = process.env.VUE_APP_API_URL
+const baseUrl = process.env.VUE_APP_API_URL;
 
-export const useVideoStore = defineStore('video', () => {
-        const videos =  ref(null)
-        const fetchVideosByUserId = async ( userId: number ) => {
-            const token = localStorage.getItem('token');
+export const useVideoStore = defineStore("video", () => {
+  const videos = ref(null);
+  const fetchVideosByUserId = async (userId: number) => {
+    const token = localStorage.getItem("token");
 
-            const config = {
-                headers:{
-                    Authorization: 'Bearer ' + token
-                }
-            }
-            const res = await axios.get(`${baseUrl}/videos/${userId}`, config)
+    const config = {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    };
+    const res = await axios.get(`${baseUrl}/videos/${userId}`, config);
 
-            videos.value = res.data.videos;
-        }
+    videos.value = res.data.videos;
+  };
 
-        return { videos, fetchVideosByUserId }
-})
+  return { videos, fetchVideosByUserId };
+});

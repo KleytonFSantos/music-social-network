@@ -23,7 +23,7 @@
           <RouterLinkButton 
             btn-text="Edit Profile"
             color="green"
-            url="/account/edit-profile"
+            :url="'/account/edit-profile/' + route.params.user_id"
           />
         </div>
       </div>
@@ -45,8 +45,10 @@
     import PostsSection from '../../components/partials/profile/PostsSection.vue';
     import { useUserStore } from '@/stores/userStore';
     import { onMounted } from 'vue';
+    import { useRoute } from 'vue-router'
   
     let userStore = useUserStore()
+    let route = useRoute()
     
     onMounted( async () => {
       await userStore.fetchUser()

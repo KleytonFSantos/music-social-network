@@ -9,7 +9,9 @@ import AddSong from "@/views/account/AddSong.vue";
 import DeleteSong from "@/views/account/DeleteSong.vue";
 import { authService } from "@/services/authService";
 import AddYoutubeVideo from "@/views/account/AddYoutubeVideo.vue";
-
+import DeleteYoutubeVideo from "@/views/account/DeleteYoutubeVideo.vue";
+import EditPost from "@/views/account/EditPost.vue";
+import CreatePost from "@/views/account/CreatePost.vue";
 let isUserLoggedIn = false;
 
 const routes: Array<RouteRecordRaw> = [
@@ -41,24 +43,39 @@ const routes: Array<RouteRecordRaw> = [
         component: ProfileSection,
       },
       {
-        path: "edit-profile",
+        path: "edit-profile/:user_id",
         name: "EditProfile",
         component: EditProfile,
       },
       {
-        path: "add-song",
+        path: ":user_id/add-song",
         name: "AddSong",
         component: AddSong,
       },
       {
-        path: "delete-song",
+        path: ":user_id/delete-song",
         name: "DeleteSong",
         component: DeleteSong,
       },
       {
-        path: "add-youtube-video",
-        name: "AddYoutubeVideo",
+        path: ":user_id/add-youtube-video",
+        name: "AddYouTubeVideo",
         component: AddYoutubeVideo,
+      },
+      {
+        path: ":user_id/delete-youtube-video",
+        name: "DeleteYouTubeVideo",
+        component: DeleteYoutubeVideo,
+      },
+      {
+        path: ":user_id/create-post",
+        name: "CreatePost",
+        component: CreatePost,
+      },
+      {
+        path: ":user_id/edit-post/:post_id",
+        name: "EditPost",
+        component: EditPost,
       },
     ],
   },

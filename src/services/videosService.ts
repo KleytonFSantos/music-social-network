@@ -28,5 +28,25 @@ export const videosService = {
         }).catch((error) => {
             errorFunction(error)
         })
-    } 
+    },
+    async deleteVideo(
+        userId: number,
+        videoId: number,
+        successFunction: () => void,
+        errorFunction: (err: object) => void
+    ): Promise<void> {
+        const token = localStorage.getItem('token');
+
+        const config = {
+            headers:{
+                Authorization: 'Bearer ' + token
+            }
+        };
+        await axios.delete(`${baseUrl}/${userId}/delete-youtube-videos/${videoId}`, config)
+        .then(() => {
+            successFunction()
+        }).catch(err=>{
+            errorFunction(err)
+        })
+    }
 }

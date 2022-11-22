@@ -39,7 +39,7 @@ export const songsService = {
                 Authorization: 'Bearer ' + token
             }
         };
-        await axios.delete(`${baseUrl}/delete-song/${userId}/${songId}`, config)
+        await axios.delete(`${baseUrl}/${userId}/delete-song/${songId}`, config)
         .then(() => {
             successFunction()
         }).catch(err=>{

@@ -10,12 +10,12 @@
                         class="hover:bg-red-500 border-red-500 ml-2"
                         btn-text="Delete Song"
                         color="red"
-                        url="/account/delete-song"
+                        :url="'/account/' + route.params.user_id + '/delete-song'"
                     />
                     <RouterLinkButton 
                         btn-text="Add Song"
                         color="green"
-                        url="/account/add-song"
+                        :url="'/account/' + route.params.user_id + '/add-song'"
                     />
                 </div>
             </div>
@@ -30,4 +30,7 @@
 <script setup>
     import SongPlayer from './SongPlayer.vue';
     import RouterLinkButton from '../../global/RouterLinkButton.vue';
+    import { useRoute } from "vue-router"
+
+    const route = useRoute()
 </script>
