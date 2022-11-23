@@ -12,6 +12,7 @@ import AddYoutubeVideo from "@/views/account/AddYoutubeVideo.vue";
 import DeleteYoutubeVideo from "@/views/account/DeleteYoutubeVideo.vue";
 import EditPost from "@/views/account/EditPost.vue";
 import CreatePost from "@/views/account/CreatePost.vue";
+import FeedView from "@/views/FeedView.vue";
 let isUserLoggedIn = false;
 
 const routes: Array<RouteRecordRaw> = [
@@ -79,6 +80,14 @@ const routes: Array<RouteRecordRaw> = [
       },
     ],
   },
+  {
+    path: "/feed",
+    component: FeedView,
+    name: "Feed",
+    meta: {
+      needsAuth: true,
+    },
+  }
 ];
 
 const router = createRouter({

@@ -16,7 +16,6 @@ export const usePostStore = defineStore("post", () => {
       },
     };
     const res = await axios.get(`${baseUrl}/posts/${userId}`, config);
-    console.log("posts res", res);
     posts.value = res.data.data;
   };
 
@@ -31,7 +30,6 @@ export const usePostStore = defineStore("post", () => {
     const res = await axios.get(`${baseUrl}/${userId}/post/${postId}`, config);
 
     userPost.value = res.data
-    console.log('postUser', res, userPost)
   }
 
   return { userPost, posts, fetchPostsByUserId, fetchPostsByPostId };
