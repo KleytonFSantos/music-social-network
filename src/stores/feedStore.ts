@@ -6,8 +6,9 @@ const baseUrl = process.env.VUE_APP_API_URL;
 
 export const useFeedStore = defineStore("feed", () => {
   const feed = ref(null);
+  const last_page = ref(null);
 
-  const fetchFeed = async () => {
+  const fetchFeed = async (page?: number) => {
     const token = localStorage.getItem("token");
 
     const config = {
@@ -15,10 +16,10 @@ export const useFeedStore = defineStore("feed", () => {
         Authorization: "Bearer " + token,
       },
     };
-    const res = await axios.get(`${baseUrl}/posts/`, config);
-    console.log("feed res", res);
+    const res = await axios.get(`${baseUrl}/posts?page=${page}`, config);
     feed.value = res.data.data;
+    last_page.value = res.data.meta.last_page;
   };
 
-  return { feed, fetchFeed };
+  return { feed, last_page, fetchFeed };
 });

@@ -70,7 +70,7 @@
   let error = ref(null)
   const login = (form) => {
     authService.login(form, (user) => {
-      router.push('/account/profile/' + user.id)
+      router.push('/feed')
     }, () => {
       console.log('deu erro')
       error.value = 'As credenciais estão incorretas.';

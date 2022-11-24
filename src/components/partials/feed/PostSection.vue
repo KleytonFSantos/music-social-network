@@ -65,15 +65,31 @@
       </div>
     </div>
   </div>
+    <Paginate
+    :page-count="feedStore.last_page"
+    :page-range="3"
+    :click-handler="paginationClickHandler"
+    :prev-text="'Prev'"
+    :next-text="'Next'"
+    :container-class="'flex items-center justify-center'"
+    :prev-link-class="'bg-transparent hover:bg-green-500 hover:text-white text-zinc-900 font-bold py-3 px-4 border border-green-500 rounded-l-md pointer'"
+    :next-link-class="'bg-transparent hover:bg-green-500 hover:text-white text-zinc-900 font-bold py-3 px-4 border border-green-500 rounded-r-md pointer'"
+    :page-link-class="'bg-transparent hover:bg-green-500 hover:text-white text-zinc-900 font-bold py-3 px-4 border border-green-500 pointer'"
+    />
 </template>
 <script setup>
 import { useFeedStore } from "@/stores/feedStore";
 import { onMounted } from "@vue/runtime-core";
+import Paginate from 'vuejs-paginate-next';
 
 const feedStore = useFeedStore();
 
 onMounted(async () => {
   await feedStore.fetchFeed()
 });
+console.log('feedStore', feedStore.last_page);
+const paginationClickHandler = async (pageNum) => {
+  await feedStore.fetchFeed(pageNum)
+}
 
 </script>

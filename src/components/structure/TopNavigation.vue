@@ -2,7 +2,7 @@
     <div class="w-full px-4 relative bg-black z-20 text-white-200">
         <div class="container mx-auto max-w-4xl h-16 flex justify-between text-xs md:text-sm">
             <div class="h-full flex items-center">
-                <router-link class="flex justify-center items-center" to="/">
+                <router-link class="flex justify-center items-center" to="/feed">
                     <div class="text-white text-2xl"><strong>MSN</strong></div>
                 </router-link>
             </div>
