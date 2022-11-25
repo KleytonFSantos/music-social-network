@@ -69,7 +69,7 @@
   
   let error = ref(null)
   const login = (form) => {
-    authService.login(form, (user) => {
+    authService.login(form, () => {
       router.push('/feed')
     }, () => {
       console.log('deu erro')

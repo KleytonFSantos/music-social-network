@@ -1,4 +1,5 @@
 <template>
+  <LoadingSpinner />
   <div
     class="lg:p-12"
     v-for="{
@@ -14,6 +15,7 @@
     :key="id"
   >
     <div
+      v-if="!feedStore.loading"
       class="
         flex flex-col
         bg-white
@@ -33,7 +35,7 @@
           />
           <div class="flex flex-col">
             <div class="p-1 ml-2 leading-tight font-semibold capitalize">
-              {{ first_name + ' ' + last_name }} 
+              {{ first_name + " " + last_name }}
             </div>
             <small class="ml-4">{{ data }}</small>
           </div>
@@ -57,7 +59,7 @@
             dark:text-white
           "
         >
-          {{ title}}
+          {{ title }}
         </h5>
         <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
           {{ description }}
@@ -65,7 +67,9 @@
       </div>
     </div>
   </div>
-    <Paginate
+
+  <Paginate
+    v-if="feedStore.last_page"
     :page-count="feedStore.last_page"
     :page-range="3"
     :click-handler="paginationClickHandler"
@@ -75,21 +79,21 @@
     :prev-link-class="'bg-transparent hover:bg-green-500 hover:text-white text-zinc-900 font-bold py-3 px-4 border border-green-500 rounded-l-md pointer'"
     :next-link-class="'bg-transparent hover:bg-green-500 hover:text-white text-zinc-900 font-bold py-3 px-4 border border-green-500 rounded-r-md pointer'"
     :page-link-class="'bg-transparent hover:bg-green-500 hover:text-white text-zinc-900 font-bold py-3 px-4 border border-green-500 pointer'"
-    />
+  />
 </template>
 <script setup>
 import { useFeedStore } from "@/stores/feedStore";
+import LoadingSpinner from "@/components/global/LoadingSpinner.vue";
 import { onMounted } from "@vue/runtime-core";
-import Paginate from 'vuejs-paginate-next';
+import Paginate from "vuejs-paginate-next";
 
 const feedStore = useFeedStore();
-
 onMounted(async () => {
-  await feedStore.fetchFeed()
+  await feedStore.fetchFeed();
 });
-console.log('feedStore', feedStore.last_page);
-const paginationClickHandler = async (pageNum) => {
-  await feedStore.fetchFeed(pageNum)
-}
 
+console.log("feedStore", feedStore.last_page);
+const paginationClickHandler = async (pageNum) => {
+  await feedStore.fetchFeed(pageNum);
+};
 </script>
