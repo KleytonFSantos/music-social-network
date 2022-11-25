@@ -4,6 +4,6 @@
 @tailwind utilities;
 
 .active > a{
-    background-color: rgb(34, 197, 94, 1);
+    background-color: rgb(34, 197, 90004, 1);
     color: white;
 }

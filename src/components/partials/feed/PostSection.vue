@@ -64,6 +64,20 @@
         <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
           {{ description }}
         </p>
+        <div @click="likedState(id)">
+          <font-awesome-icon
+            :class="idLiked === id ? 'text-red-500' : 'text-zinc-700'"
+            icon="fa-solid fa-heart"
+            class="
+              mr-2
+              p-2
+              float-right
+              hover:-translate-y-1 hover:transition-all
+              rounded-full
+              pointer
+            "
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -84,15 +98,18 @@
 <script setup>
 import { useFeedStore } from "@/stores/feedStore";
 import LoadingSpinner from "@/components/global/LoadingSpinner.vue";
-import { onMounted } from "@vue/runtime-core";
+import { onMounted, ref } from "@vue/runtime-core";
 import Paginate from "vuejs-paginate-next";
 
+const idLiked = ref(null);
 const feedStore = useFeedStore();
 onMounted(async () => {
   await feedStore.fetchFeed();
 });
 
-console.log("feedStore", feedStore.last_page);
+const likedState = (id) => {
+  idLiked.value = id
+};
 const paginationClickHandler = async (pageNum) => {
   await feedStore.fetchFeed(pageNum);
 };

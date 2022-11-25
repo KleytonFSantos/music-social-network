@@ -8,10 +8,9 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import Paginate from "vuejs-paginate-next";
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
-import { faHome } from '@fortawesome/free-solid-svg-icons'
-import { faUser } from '@fortawesome/free-solid-svg-icons'
+import { faHome, faUser, faHeart } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faUserSecret, faHome, faUser)
+library.add(faUserSecret, faHome, faUser, faHeart)
 
 const pinia = createPinia()
 
